@@ -18,13 +18,8 @@ export async function onRequestGet({ params, env }) {
     }
 }
 
-// POST /api/services/:date — Add a service to a date (authenticated)
+// POST /api/services/:date — Add a service (open to choir lead and deacon, no auth)
 export async function onRequestPost({ request, params, env }) {
-    const auth = request.headers.get('Authorization');
-    if (!auth || !auth.startsWith('Bearer ')) return json({ error: 'Unauthorised' }, 401);
-    const payload = await verifyJWT(auth.slice(7), env.JWT_SECRET);
-    if (!payload || payload.role !== 'editor') return json({ error: 'Invalid or expired token' }, 401);
-
     const date = params.date;
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return json({ error: 'Valid YYYY-MM-DD date required' }, 400);
 
@@ -34,7 +29,6 @@ export async function onRequestPost({ request, params, env }) {
 
         if (!id || !name_en) return json({ error: 'id and name_en are required' }, 400);
 
-        // Check for duplicate
         const existing = await env.DB.prepare("SELECT id FROM services WHERE id = ? AND date = ?").bind(id, date).first();
         if (existing) return json({ error: 'Service already exists for this date' }, 409);
 
@@ -48,7 +42,7 @@ export async function onRequestPost({ request, params, env }) {
     }
 }
 
-// DELETE /api/services/:date — Remove a service (authenticated)
+// DELETE /api/services/:date — Remove a service (auth required — choir lead only)
 export async function onRequestDelete({ request, params, env }) {
     const auth = request.headers.get('Authorization');
     if (!auth || !auth.startsWith('Bearer ')) return json({ error: 'Unauthorised' }, 401);

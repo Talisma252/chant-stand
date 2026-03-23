@@ -44,6 +44,7 @@
         bindBooks();
         bindPrefs();
         bindEdit();
+        bindAddService();
         renderCalendar();
         renderToday();
         loadCalendarFeasts();
@@ -57,25 +58,87 @@
         }
     }
 
-    // Find the nearest Sunday (today or next) and auto-load its services
+    // Auto-load today's services and Divine Liturgy so the app isn't empty
     function autoLoadServices() {
         const today = new Date();
-        const day = today.getDay(); // 0 = Sunday
-        const diff = day === 0 ? 0 : 7 - day; // days until next Sunday
-        const nearest = new Date(today);
-        nearest.setDate(today.getDate() + diff);
-        const dateStr = `${nearest.getFullYear()}-${String(nearest.getMonth() + 1).padStart(2, '0')}-${String(nearest.getDate()).padStart(2, '0')}`;
+        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
         state.selectedDate = dateStr;
 
-        // Also try to load the Divine Liturgy directly so the Liturgy tab has content
+        // Pre-load today's services for the Services tab
+        loadServicesQuiet(dateStr);
+
+        // Load the Divine Liturgy directly so the Liturgy tab has content
         loadLiturgy('lit');
+    }
+
+    // Load services without switching tab (for background pre-loading)
+    async function loadServicesQuiet(date) {
+        const label = $('#services-date-label');
+        const list = $('#services-list');
+        const feastDiv = $('#services-feast');
+
+        const d = new Date(date + 'T12:00:00');
+        label.textContent = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        feastDiv.classList.add('hidden');
+
+        try {
+            const res = await fetch(`${API}/services/${date}`);
+            if (!res.ok) return;
+            const data = await res.json();
+
+            if (data.feast) {
+                feastDiv.classList.remove('hidden');
+                feastDiv.innerHTML = `
+                    <div class="feast-en" style="font-weight:bold;color:var(--ocean);">${data.feast.en}</div>
+                    <div class="feast-ro" style="font-family:var(--font-ro);font-style:italic;color:var(--text-muted);font-size:0.9rem;">${data.feast.ro}</div>
+                    ${data.feast.tone != null ? `<div class="feast-tone" style="font-family:var(--font-label);font-size:0.75rem;color:var(--purple);margin-top:4px;">Tone ${data.feast.tone}</div>` : ''}
+                `;
+            }
+
+            if (!data.services || data.services.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">⛪</div><p>No services scheduled for this date.</p></div>';
+                return;
+            }
+
+            list.innerHTML = '';
+            data.services.forEach(svc => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <div class="service-info">
+                        <h3>${svc.name_en}</h3>
+                        <p>${svc.name_ro}</p>
+                    </div>
+                    <div class="service-meta">
+                        ${svc.time ? `<span class="service-time">${svc.time}</span>` : ''}
+                        ${svc.has_en ? '<span class="lang-badge en">EN</span>' : ''}
+                        ${svc.has_ro ? '<span class="lang-badge ro">RO</span>' : ''}
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    state.selectedService = svc.id;
+                    loadLiturgy(svc.id);
+                });
+                list.appendChild(card);
+            });
+        } catch (e) {
+            // Silently fail on pre-load
+        }
     }
 
     // ---- Navigation ----
     function bindNav() {
         $$('.nav-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                switchTab(btn.dataset.tab);
+                const tab = btn.dataset.tab;
+                switchTab(tab);
+                // Auto-load today's services if Services tab opened and empty
+                if (tab === 'services' && !$('#services-list').children.length) {
+                    const today = new Date();
+                    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                    state.selectedDate = dateStr;
+                    loadServicesQuiet(dateStr);
+                }
             });
         });
     }
@@ -272,13 +335,8 @@
                 });
                 list.appendChild(card);
             });
-            // Show/hide add service panel based on edit mode
-            const addPanel = $('#add-service-panel');
-            if (state.editing) {
-                addPanel.classList.remove('hidden');
-            } else {
-                addPanel.classList.add('hidden');
-            }
+            // Reset add service panel (keep hidden until user clicks + Add)
+            $('#add-service-panel').classList.add('hidden');
         } catch (e) {
             list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load services. Please try again.</p></div>';
         }
@@ -578,7 +636,6 @@
 
         $('#btn-save-edit').addEventListener('click', saveEdits);
         $('#btn-exit-edit').addEventListener('click', exitEditMode);
-        $('#btn-add-service').addEventListener('click', addService);
         $('#btn-find-replace').addEventListener('click', openFindReplace);
         $('#fr-close').addEventListener('click', closeFindReplace);
         $('#fr-search').addEventListener('click', runFindReplace);
@@ -673,7 +730,7 @@
         });
     }
 
-    // ---- Add Service ----
+    // ---- Add Service (no auth required — open to choir lead and deacon) ----
     const SERVICE_TYPES = {
         lit: { en: 'Divine Liturgy', ro: 'Sfânta Liturghie' },
         mat: { en: 'Matins', ro: 'Utrenia' },
@@ -684,55 +741,68 @@
         h9:  { en: 'Ninth Hour', ro: 'Ceasul al IX-lea' },
     };
 
-    async function addService() {
+    function bindAddService() {
+        // Toggle panel
+        $('#btn-show-add-svc').addEventListener('click', () => {
+            if (!state.selectedDate) {
+                alert('Please select a date from the calendar first.');
+                return;
+            }
+            $('#add-service-panel').classList.toggle('hidden');
+        });
+
+        // Preset buttons — one-tap add
+        $$('.add-svc-preset').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const typeId = btn.dataset.type;
+                const time = btn.dataset.time;
+                quickAddService(typeId, time);
+            });
+        });
+
+        // Custom add button
+        $('#btn-add-service').addEventListener('click', addService);
+    }
+
+    async function quickAddService(typeId, time) {
         if (!state.selectedDate) {
             alert('Please select a date from the calendar first.');
             return;
         }
+        const svcType = SERVICE_TYPES[typeId];
+        await postService(typeId, svcType.en, svcType.ro, time, true, true);
+    }
 
+    async function addService() {
+        if (!state.selectedDate) return;
         const typeId = $('#add-svc-type').value;
         const time = $('#add-svc-time').value;
         const hasEn = $('#add-svc-en').checked;
         const hasRo = $('#add-svc-ro').checked;
         const svcType = SERVICE_TYPES[typeId];
+        await postService(typeId, svcType.en, svcType.ro, time, hasEn, hasRo);
+    }
 
+    async function postService(id, nameEn, nameRo, time, hasEn, hasRo) {
         try {
             const res = await fetch(`${API}/services/${state.selectedDate}`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${state.authToken}`,
-                },
-                body: JSON.stringify({
-                    id: typeId,
-                    name_en: svcType.en,
-                    name_ro: svcType.ro,
-                    time: time,
-                    has_en: hasEn,
-                    has_ro: hasRo,
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name_en: nameEn, name_ro: nameRo, time, has_en: hasEn, has_ro: hasRo }),
             });
 
             if (res.status === 409) {
                 alert('This service already exists for this date.');
                 return;
             }
-
-            if (res.status === 401) {
-                alert('Session expired. Please log in again.');
-                state.authToken = null;
-                sessionStorage.removeItem('cs_token');
-                exitEditMode();
-                return;
-            }
-
             if (!res.ok) {
-                const err = await res.json();
-                alert('Failed to add service: ' + (err.error || 'Unknown error'));
+                const err = await res.json().catch(() => ({}));
+                alert('Failed: ' + (err.error || 'Unknown error'));
                 return;
             }
 
-            // Reload services for this date
+            // Reload services and hide panel
+            $('#add-service-panel').classList.add('hidden');
             loadServices(state.selectedDate);
         } catch (e) {
             alert('Failed to add service. Please try again.');

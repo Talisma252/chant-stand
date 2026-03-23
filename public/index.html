@@ -76,25 +76,39 @@
             <h2 id="services-date-label" class="section-title"></h2>
             <div id="services-feast" class="services-feast hidden"></div>
             <div id="services-list" class="services-list"></div>
+            <!-- Quick-add service (no auth needed — for choir lead and deacon) -->
+            <button id="btn-show-add-svc" class="btn-show-add-svc">+ Add Service</button>
             <div id="add-service-panel" class="add-service-panel hidden">
-                <h3 class="add-service-title">Add Service</h3>
-                <div class="add-service-form">
-                    <select id="add-svc-type">
-                        <option value="lit">Divine Liturgy — Sfânta Liturghie</option>
-                        <option value="mat">Matins — Utrenia</option>
-                        <option value="ves">Great Vespers — Vecernia Mare</option>
-                        <option value="h1">First Hour — Ceasul I</option>
-                        <option value="h3">Third Hour — Ceasul al III-lea</option>
-                        <option value="h6">Sixth Hour — Ceasul al VI-lea</option>
-                        <option value="h9">Ninth Hour — Ceasul al IX-lea</option>
-                    </select>
-                    <input type="time" id="add-svc-time" value="10:00">
-                    <div class="add-svc-langs">
-                        <label><input type="checkbox" id="add-svc-en" checked> English</label>
-                        <label><input type="checkbox" id="add-svc-ro"> Romanian</label>
-                    </div>
-                    <button id="btn-add-service" class="fr-action-btn">Add Service</button>
+                <h3 class="add-service-title">Quick Add</h3>
+                <div class="add-svc-presets">
+                    <button class="add-svc-preset" data-type="lit" data-time="10:00">Divine Liturgy 10:00</button>
+                    <button class="add-svc-preset" data-type="mat" data-time="08:30">Matins 08:30</button>
+                    <button class="add-svc-preset" data-type="ves" data-time="18:00">Vespers 18:00</button>
+                    <button class="add-svc-preset" data-type="h3" data-time="09:30">Third Hour 09:30</button>
+                    <button class="add-svc-preset" data-type="h6" data-time="09:45">Sixth Hour 09:45</button>
+                    <button class="add-svc-preset" data-type="h9" data-time="15:00">Ninth Hour 15:00</button>
+                    <button class="add-svc-preset" data-type="h1" data-time="07:00">First Hour 07:00</button>
                 </div>
+                <details class="add-svc-custom">
+                    <summary>Custom service</summary>
+                    <div class="add-service-form">
+                        <select id="add-svc-type">
+                            <option value="lit">Divine Liturgy — Sfânta Liturghie</option>
+                            <option value="mat">Matins — Utrenia</option>
+                            <option value="ves">Great Vespers — Vecernia Mare</option>
+                            <option value="h1">First Hour — Ceasul I</option>
+                            <option value="h3">Third Hour — Ceasul al III-lea</option>
+                            <option value="h6">Sixth Hour — Ceasul al VI-lea</option>
+                            <option value="h9">Ninth Hour — Ceasul al IX-lea</option>
+                        </select>
+                        <input type="time" id="add-svc-time" value="10:00">
+                        <div class="add-svc-langs">
+                            <label><input type="checkbox" id="add-svc-en" checked> English</label>
+                            <label><input type="checkbox" id="add-svc-ro"> Romanian</label>
+                        </div>
+                        <button id="btn-add-service" class="fr-action-btn">Add Service</button>
+                    </div>
+                </details>
             </div>
         </section>
 

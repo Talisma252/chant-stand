@@ -567,11 +567,31 @@ body.dark .service-info h3 {
     color: var(--white);
 }
 
-/* ---- Add Service Panel ---- */
-.add-service-panel {
+/* ---- Add Service ---- */
+.btn-show-add-svc {
+    display: block;
+    width: 100%;
     margin-top: 16px;
+    padding: 14px;
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
     background: var(--bg-card);
     border: 2px dashed var(--gold);
+    border-radius: var(--radius);
+    color: var(--gold);
+    cursor: pointer;
+    min-height: 48px;
+}
+
+.btn-show-add-svc:hover {
+    background: rgba(184, 137, 10, 0.1);
+}
+
+.add-service-panel {
+    margin-top: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
 }
@@ -582,15 +602,58 @@ body.dark .service-info h3 {
 
 .add-service-title {
     font-family: var(--font-label);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--gold);
     margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.add-svc-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.add-svc-preset {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    padding: 10px 14px;
+    background: var(--ocean);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    min-height: 44px;
+    letter-spacing: 0.3px;
+}
+
+.add-svc-preset:hover {
+    opacity: 0.85;
+}
+
+.add-svc-preset:active {
+    transform: scale(0.97);
+}
+
+.add-svc-custom {
+    margin-top: 8px;
+}
+
+.add-svc-custom summary {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px 0;
+    letter-spacing: 0.3px;
 }
 
 .add-service-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 8px;
 }
 
 .add-service-form select,
