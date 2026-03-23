@@ -6,37 +6,4 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "chant_stand_db"
-database_id = "YOUR_D1_DATABASE_ID_HERE"
-
-# KV Namespace binding
-[[kv_namespaces]]
-binding = "SESSIONS"
-id = "YOUR_KV_NAMESPACE_ID_HERE"
-
-# Secrets (set via `wrangler secret put`):
-#   EDITOR_PASSWORD — shared password for Choir Lead editing
-#   JWT_SECRET      — random 32+ char string for signing JWTs
-
-[env.staging]
-name = "chant-stand-staging"
-
-[[env.staging.d1_databases]]
-binding = "DB"
-database_name = "chant_stand_db"
-database_id = "YOUR_D1_DATABASE_ID_HERE"
-
-[[env.staging.kv_namespaces]]
-binding = "SESSIONS"
-id = "YOUR_KV_NAMESPACE_ID_HERE"
-
-[env.production]
-name = "chant-stand"
-
-[[env.production.d1_databases]]
-binding = "DB"
-database_name = "chant_stand_db"
-database_id = "YOUR_D1_DATABASE_ID_HERE"
-
-[[env.production.kv_namespaces]]
-binding = "SESSIONS"
-id = "YOUR_KV_NAMESPACE_ID_HERE"
+database_id = "6a8dc4af-91ff-47ab-bc12-87842d24f445"
