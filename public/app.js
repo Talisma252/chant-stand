@@ -515,8 +515,9 @@
                             const url = note.link_url;
                             // If it's a local PDF score, show inline iframe
                             if (url.startsWith('/scores/') && url.endsWith('.pdf')) {
+                                // Append #view=FitH to hide sidebar and fit width
                                 noteHtml += `<div class="score-embed">
-                                    <iframe src="${escapeHtml(url)}" class="score-iframe" loading="lazy"></iframe>
+                                    <iframe src="${escapeHtml(url)}#toolbar=0&navpanes=0&view=FitH" class="score-iframe" loading="lazy"></iframe>
                                 </div>`;
                             } else {
                                 noteHtml += `<a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="note-link">${escapeHtml(note.link_label || 'Open')}</a>`;
