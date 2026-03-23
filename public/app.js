@@ -48,10 +48,27 @@
         renderToday();
         loadCalendarFeasts();
 
+        // Auto-load nearest Sunday's services so the app isn't empty
+        autoLoadServices();
+
         // Register service worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js').catch(() => {});
         }
+    }
+
+    // Find the nearest Sunday (today or next) and auto-load its services
+    function autoLoadServices() {
+        const today = new Date();
+        const day = today.getDay(); // 0 = Sunday
+        const diff = day === 0 ? 0 : 7 - day; // days until next Sunday
+        const nearest = new Date(today);
+        nearest.setDate(today.getDate() + diff);
+        const dateStr = `${nearest.getFullYear()}-${String(nearest.getMonth() + 1).padStart(2, '0')}-${String(nearest.getDate()).padStart(2, '0')}`;
+        state.selectedDate = dateStr;
+
+        // Also try to load the Divine Liturgy directly so the Liturgy tab has content
+        loadLiturgy('lit');
     }
 
     // ---- Navigation ----
