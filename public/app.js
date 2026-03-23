@@ -512,7 +512,15 @@
                             noteHtml += `<div class="note-text">${escapeHtml(note.note_text)}</div>`;
                         }
                         if (note.link_url) {
-                            noteHtml += `<a href="${escapeHtml(note.link_url)}" target="_blank" rel="noopener" class="note-link">${escapeHtml(note.link_label || 'Open')}</a>`;
+                            const url = note.link_url;
+                            // If it's a local PDF score, show inline iframe
+                            if (url.startsWith('/scores/') && url.endsWith('.pdf')) {
+                                noteHtml += `<div class="score-embed">
+                                    <iframe src="${escapeHtml(url)}" class="score-iframe" loading="lazy"></iframe>
+                                </div>`;
+                            } else {
+                                noteHtml += `<a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="note-link">${escapeHtml(note.link_label || 'Open')}</a>`;
+                            }
                         }
                         item.innerHTML = noteHtml;
                         body.appendChild(item);

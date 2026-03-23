@@ -3,7 +3,7 @@
    Caches static assets and API responses for offline use
    ============================================================ */
 
-const CACHE_NAME = 'chant-stand-v6';
+const CACHE_NAME = 'chant-stand-v7';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
