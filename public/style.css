@@ -682,6 +682,47 @@ body.dark .service-info h3 {
     cursor: pointer;
 }
 
+/* ---- Liturgy Header ---- */
+.liturgy-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.liturgy-back-btn {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    padding: 8px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--ocean);
+    cursor: pointer;
+    min-height: 44px;
+    white-space: nowrap;
+}
+
+body.dark .liturgy-back-btn {
+    color: var(--gold);
+}
+
+.liturgy-back-btn:hover {
+    background: var(--ocean);
+    color: var(--white);
+}
+
+.liturgy-title {
+    font-family: var(--font-label);
+    font-size: 0.95rem;
+    color: var(--ocean);
+    flex: 1;
+}
+
+body.dark .liturgy-title {
+    color: var(--gold);
+}
+
 /* ---- Liturgy Toolbar ---- */
 .liturgy-toolbar {
     display: flex;

@@ -375,14 +375,32 @@
                 applyFontSize();
             }
         });
+
+        // Back button — return to previous tab
+        $('#btn-liturgy-back').addEventListener('click', () => {
+            // Go back to services if we came from there, otherwise calendar
+            if (state.selectedDate) {
+                switchTab('services');
+            } else {
+                switchTab('calendar');
+            }
+        });
     }
 
     async function loadLiturgy(serviceType) {
         switchTab('liturgy');
         const content = $('#liturgy-content');
         const chips = $('#bookmark-chips');
+        const title = $('#liturgy-title');
         content.innerHTML = '<div class="loading">Loading liturgy...</div>';
         chips.innerHTML = '';
+
+        // Set title
+        const svcNames = {
+            lit: 'Divine Liturgy', mat: 'Matins', ves: 'Vespers',
+            h1: 'First Hour', h3: 'Third Hour', h6: 'Sixth Hour', h9: 'Ninth Hour',
+        };
+        title.textContent = svcNames[serviceType] || serviceType;
 
         // Check cache
         if (state.liturgyCache[serviceType]) {
@@ -394,6 +412,27 @@
             const res = await fetch(`${API}/liturgy/${serviceType}`);
             if (!res.ok) throw new Error('Failed to load');
             const data = await res.json();
+
+            // Handle empty content
+            if (!data.blocks || data.blocks.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state" style="padding:40px 20px;">
+                        <div class="empty-icon">📖</div>
+                        <h3 style="font-family:var(--font-label);margin-bottom:8px;">${svcNames[serviceType] || serviceType}</h3>
+                        <p>This service has not been added yet.</p>
+                        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:12px;">
+                            The Choir Lead can add content using Edit Mode (✏️),
+                            or you can use the GOARCH Digital Chant Stand as a reference:
+                        </p>
+                        <a href="https://dcs.goarch.org/goa/dcs/dcs.html" target="_blank" rel="noopener"
+                           style="display:inline-block;margin-top:12px;font-family:var(--font-label);font-size:0.8rem;padding:10px 20px;background:var(--ocean);color:var(--white);border-radius:var(--radius);text-decoration:none;min-height:44px;line-height:24px;">
+                            Open GOARCH DCS
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
             state.liturgyCache[serviceType] = data;
             renderLiturgy(data);
         } catch (e) {
