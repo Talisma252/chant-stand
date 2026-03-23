@@ -255,6 +255,13 @@
                 });
                 list.appendChild(card);
             });
+            // Show/hide add service panel based on edit mode
+            const addPanel = $('#add-service-panel');
+            if (state.editing) {
+                addPanel.classList.remove('hidden');
+            } else {
+                addPanel.classList.add('hidden');
+            }
         } catch (e) {
             list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load services. Please try again.</p></div>';
         }
@@ -554,6 +561,7 @@
 
         $('#btn-save-edit').addEventListener('click', saveEdits);
         $('#btn-exit-edit').addEventListener('click', exitEditMode);
+        $('#btn-add-service').addEventListener('click', addService);
         $('#btn-find-replace').addEventListener('click', openFindReplace);
         $('#fr-close').addEventListener('click', closeFindReplace);
         $('#fr-search').addEventListener('click', runFindReplace);
@@ -637,6 +645,7 @@
     function exitEditMode() {
         state.editing = false;
         $('#edit-bar').classList.add('hidden');
+        $('#add-service-panel').classList.add('hidden');
         document.body.style.paddingTop = `${$('#app-header').offsetHeight}px`;
 
         $$('.liturgy-block').forEach(el => {
@@ -645,6 +654,72 @@
         $$('.liturgy-block .lt-en, .liturgy-block .lt-ro').forEach(el => {
             el.contentEditable = 'false';
         });
+    }
+
+    // ---- Add Service ----
+    const SERVICE_TYPES = {
+        lit: { en: 'Divine Liturgy', ro: 'Sfânta Liturghie' },
+        mat: { en: 'Matins', ro: 'Utrenia' },
+        ves: { en: 'Great Vespers', ro: 'Vecernia Mare' },
+        h1:  { en: 'First Hour', ro: 'Ceasul I' },
+        h3:  { en: 'Third Hour', ro: 'Ceasul al III-lea' },
+        h6:  { en: 'Sixth Hour', ro: 'Ceasul al VI-lea' },
+        h9:  { en: 'Ninth Hour', ro: 'Ceasul al IX-lea' },
+    };
+
+    async function addService() {
+        if (!state.selectedDate) {
+            alert('Please select a date from the calendar first.');
+            return;
+        }
+
+        const typeId = $('#add-svc-type').value;
+        const time = $('#add-svc-time').value;
+        const hasEn = $('#add-svc-en').checked;
+        const hasRo = $('#add-svc-ro').checked;
+        const svcType = SERVICE_TYPES[typeId];
+
+        try {
+            const res = await fetch(`${API}/services/${state.selectedDate}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${state.authToken}`,
+                },
+                body: JSON.stringify({
+                    id: typeId,
+                    name_en: svcType.en,
+                    name_ro: svcType.ro,
+                    time: time,
+                    has_en: hasEn,
+                    has_ro: hasRo,
+                }),
+            });
+
+            if (res.status === 409) {
+                alert('This service already exists for this date.');
+                return;
+            }
+
+            if (res.status === 401) {
+                alert('Session expired. Please log in again.');
+                state.authToken = null;
+                sessionStorage.removeItem('cs_token');
+                exitEditMode();
+                return;
+            }
+
+            if (!res.ok) {
+                const err = await res.json();
+                alert('Failed to add service: ' + (err.error || 'Unknown error'));
+                return;
+            }
+
+            // Reload services for this date
+            loadServices(state.selectedDate);
+        } catch (e) {
+            alert('Failed to add service. Please try again.');
+        }
     }
 
     // ---- Find & Replace ----

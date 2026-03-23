@@ -280,6 +280,30 @@ body.dark .section-title {
     gap: 4px;
 }
 
+.saint-icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    margin-bottom: 6px;
+}
+
+.saint-icon-circle.brendan {
+    background: linear-gradient(135deg, #1a5276, #2e86c1);
+}
+
+.saint-icon-circle.joseph {
+    background: linear-gradient(135deg, #4a235a, #7d3c98);
+}
+
+.saint-icon-inner {
+    font-size: 1.8rem;
+    color: var(--gold);
+}
+
 .saint-icon {
     font-size: 1.8rem;
 }
@@ -556,6 +580,58 @@ body.dark .service-info h3 {
 .lang-badge.ro {
     background: var(--crimson);
     color: var(--white);
+}
+
+/* ---- Add Service Panel ---- */
+.add-service-panel {
+    margin-top: 16px;
+    background: var(--bg-card);
+    border: 2px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 16px;
+}
+
+.add-service-panel.hidden {
+    display: none;
+}
+
+.add-service-title {
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+}
+
+.add-service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-service-form select,
+.add-service-form input[type="time"] {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 44px;
+}
+
+.add-svc-langs {
+    display: flex;
+    gap: 16px;
+}
+
+.add-svc-langs label {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
 }
 
 /* ---- Liturgy Toolbar ---- */

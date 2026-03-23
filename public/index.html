@@ -43,12 +43,16 @@
                     <p class="saints-subtitle">Parohia Sf. Brendan și Sf. Iosif de la Partoș</p>
                     <div class="saints-row">
                         <div class="saint">
-                            <span class="saint-icon">☘</span>
+                            <div class="saint-icon-circle brendan">
+                                <span class="saint-icon-inner">⚓</span>
+                            </div>
                             <span class="saint-name">St Brendan the Navigator</span>
                             <span class="saint-date">16 May</span>
                         </div>
                         <div class="saint">
-                            <span class="saint-icon">☩</span>
+                            <div class="saint-icon-circle joseph">
+                                <span class="saint-icon-inner">☩</span>
+                            </div>
                             <span class="saint-name">St Joseph of Partos</span>
                             <span class="saint-date">15 September</span>
                         </div>
@@ -76,6 +80,26 @@
             <h2 id="services-date-label" class="section-title"></h2>
             <div id="services-feast" class="services-feast hidden"></div>
             <div id="services-list" class="services-list"></div>
+            <div id="add-service-panel" class="add-service-panel hidden">
+                <h3 class="add-service-title">Add Service</h3>
+                <div class="add-service-form">
+                    <select id="add-svc-type">
+                        <option value="lit">Divine Liturgy — Sfânta Liturghie</option>
+                        <option value="mat">Matins — Utrenia</option>
+                        <option value="ves">Great Vespers — Vecernia Mare</option>
+                        <option value="h1">First Hour — Ceasul I</option>
+                        <option value="h3">Third Hour — Ceasul al III-lea</option>
+                        <option value="h6">Sixth Hour — Ceasul al VI-lea</option>
+                        <option value="h9">Ninth Hour — Ceasul al IX-lea</option>
+                    </select>
+                    <input type="time" id="add-svc-time" value="10:00">
+                    <div class="add-svc-langs">
+                        <label><input type="checkbox" id="add-svc-en" checked> English</label>
+                        <label><input type="checkbox" id="add-svc-ro"> Romanian</label>
+                    </div>
+                    <button id="btn-add-service" class="fr-action-btn">Add Service</button>
+                </div>
+            </div>
         </section>
 
         <!-- Liturgy Tab -->
