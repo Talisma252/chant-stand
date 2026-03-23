@@ -1,0 +1,1231 @@
+/* ============================================================
+   Digital Chant Stand — Strană Digitală
+   Complete Stylesheet
+   ============================================================ */
+
+/* ---- CSS Custom Properties ---- */
+:root {
+    --ocean: #1A3550;
+    --purple: #4A235A;
+    --gold: #B8890A;
+    --limestone: #F7F3E8;
+    --stone: #A89E8A;
+    --crimson: #8B1A1A;
+    --white: #FFFFFF;
+    --black: #1a1a1a;
+
+    --font-body: 'IM Fell English', Georgia, serif;
+    --font-label: 'Cinzel', 'Times New Roman', serif;
+    --font-ro: 'Crimson Pro', Georgia, serif;
+
+    --font-size: 18px;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.12);
+    --nav-height: 64px;
+    --header-height: 56px;
+
+    --bg: var(--limestone);
+    --bg-card: var(--white);
+    --text: var(--black);
+    --text-muted: #666;
+    --border: #e0ddd5;
+}
+
+/* ---- Dark Mode ---- */
+body.dark {
+    --bg: #0d1b2a;
+    --bg-card: #1b2838;
+    --text: #e8e4dc;
+    --text-muted: #a0a0a0;
+    --border: #2a3a4a;
+    --limestone: #0d1b2a;
+    --white: #1b2838;
+    --black: #e8e4dc;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: var(--font-size);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-top: var(--header-height);
+    padding-bottom: var(--nav-height);
+    overflow-x: hidden;
+}
+
+/* ---- Header ---- */
+#app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--ocean);
+    color: var(--white);
+}
+
+.header-stripe {
+    height: 4px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0px,
+        var(--gold) 20px,
+        var(--ocean) 20px,
+        var(--ocean) 40px,
+        var(--purple) 40px,
+        var(--purple) 60px
+    );
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    height: calc(var(--header-height) - 4px);
+}
+
+.header-title {
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+}
+
+.header-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    font-size: 1.1rem;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.header-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ---- Edit Bar ---- */
+.edit-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--crimson);
+    color: var(--white);
+    padding: 8px 16px;
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.edit-bar.hidden {
+    display: none;
+}
+
+.edit-btn {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    padding: 6px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-left: 8px;
+    min-height: 36px;
+}
+
+.edit-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.edit-btn-cancel {
+    background: rgba(0,0,0,0.2);
+}
+
+/* ---- Bottom Navigation ---- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    background: var(--ocean);
+    border-top: 2px solid var(--gold);
+    height: var(--nav-height);
+}
+
+.nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-label);
+    font-size: 0.6rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    padding: 4px;
+    min-height: 44px;
+    transition: color 0.2s;
+}
+
+.nav-btn.active {
+    color: var(--gold);
+}
+
+.nav-btn:hover {
+    color: var(--white);
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+}
+
+.nav-label {
+    text-transform: uppercase;
+}
+
+/* ---- Tab Content ---- */
+.tab-content {
+    display: none;
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.section-title {
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    color: var(--ocean);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+body.dark .section-title {
+    color: var(--gold);
+}
+
+/* ---- Saints Card ---- */
+.saints-card {
+    background: linear-gradient(135deg, var(--ocean), var(--purple));
+    border-radius: 12px;
+    padding: 2px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.saints-card-inner {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: var(--white);
+}
+
+.saints-card h3 {
+    font-family: var(--font-label);
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+}
+
+.saints-subtitle {
+    font-family: var(--font-ro);
+    font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 16px;
+}
+
+.saints-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.saint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.saint-icon {
+    font-size: 1.8rem;
+}
+
+.saint-name {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.saint-date {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.saints-location,
+.saints-diocese {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.saints-diocese {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+/* ---- Today Strip ---- */
+.today-strip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.today-strip .today-date {
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    color: var(--ocean);
+}
+
+body.dark .today-strip .today-date {
+    color: var(--gold);
+}
+
+.today-strip .today-feast {
+    font-style: italic;
+    color: var(--purple);
+    margin-top: 4px;
+    font-size: 0.9rem;
+}
+
+body.dark .today-strip .today-feast {
+    color: #c090d0;
+}
+
+/* ---- Calendar ---- */
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.cal-nav-btn {
+    background: var(--ocean);
+    color: var(--white);
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.cal-month-label {
+    font-family: var(--font-label);
+    font-size: 1rem;
+    color: var(--ocean);
+}
+
+body.dark .cal-month-label {
+    color: var(--gold);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 16px;
+}
+
+.cal-header {
+    font-family: var(--font-label);
+    font-size: 0.65rem;
+    text-align: center;
+    padding: 8px 0;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cal-day {
+    text-align: center;
+    padding: 10px 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.9rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+}
+
+.cal-day:hover {
+    background: rgba(184, 137, 10, 0.1);
+}
+
+.cal-day.today {
+    background: var(--ocean);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.cal-day.has-feast::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+.cal-day.patron-feast {
+    border: 2px solid var(--gold);
+}
+
+.cal-day.patron-feast::after {
+    width: 8px;
+    height: 8px;
+    background: var(--crimson);
+}
+
+.cal-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.cal-feast-detail {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+}
+
+.cal-feast-detail.hidden {
+    display: none;
+}
+
+.cal-feast-detail .feast-en {
+    font-weight: bold;
+    color: var(--ocean);
+}
+
+body.dark .cal-feast-detail .feast-en {
+    color: var(--gold);
+}
+
+.cal-feast-detail .feast-ro {
+    font-family: var(--font-ro);
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.cal-feast-detail .feast-tone {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    color: var(--purple);
+    margin-top: 4px;
+}
+
+/* ---- Services List ---- */
+.services-feast {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+.services-feast.hidden {
+    display: none;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: box-shadow 0.2s;
+    min-height: 56px;
+}
+
+.service-card:hover {
+    box-shadow: var(--shadow);
+}
+
+.service-info h3 {
+    font-family: var(--font-label);
+    font-size: 0.9rem;
+    color: var(--ocean);
+}
+
+body.dark .service-info h3 {
+    color: var(--gold);
+}
+
+.service-info p {
+    font-family: var(--font-ro);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.service-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.service-time {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.lang-badge {
+    font-family: var(--font-label);
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.lang-badge.en {
+    background: var(--ocean);
+    color: var(--white);
+}
+
+.lang-badge.ro {
+    background: var(--crimson);
+    color: var(--white);
+}
+
+/* ---- Liturgy Toolbar ---- */
+.liturgy-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.lang-switcher {
+    display: flex;
+    gap: 4px;
+}
+
+.lang-btn {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    border-radius: var(--radius);
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    min-height: 36px;
+}
+
+.lang-btn.active {
+    background: var(--ocean);
+    color: var(--white);
+    border-color: var(--ocean);
+}
+
+.font-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.font-btn {
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    border-radius: var(--radius);
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 44px;
+}
+
+/* ---- Bookmark Chips ---- */
+.bookmark-chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px 0 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.bookmark-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.bookmark-chip {
+    font-family: var(--font-label);
+    font-size: 0.6rem;
+    padding: 6px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    color: var(--text);
+    letter-spacing: 0.3px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.bookmark-chip:hover,
+.bookmark-chip.active {
+    background: var(--ocean);
+    color: var(--white);
+    border-color: var(--ocean);
+}
+
+/* ---- Liturgy Content ---- */
+.liturgy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.liturgy-block {
+    padding: 10px 16px;
+    border-left: 4px solid transparent;
+    position: relative;
+}
+
+/* Role colours */
+.liturgy-block[data-role="priest"] {
+    border-left-color: var(--ocean);
+}
+
+.liturgy-block[data-role="deacon"] {
+    border-left-color: var(--gold);
+}
+
+.liturgy-block[data-role="choir"] {
+    border-left-color: var(--purple);
+}
+
+.liturgy-block[data-role="choir"] .lt-en,
+.liturgy-block[data-role="choir"] .lt-ro {
+    color: var(--purple);
+    font-weight: bold;
+}
+
+body.dark .liturgy-block[data-role="choir"] .lt-en,
+body.dark .liturgy-block[data-role="choir"] .lt-ro {
+    color: #c090d0;
+}
+
+.liturgy-block[data-role="rubric"] {
+    border-left-color: var(--stone);
+}
+
+.liturgy-block[data-role="rubric"] .lt-en,
+.liturgy-block[data-role="rubric"] .lt-ro {
+    font-style: italic;
+    font-size: 0.85em;
+    color: var(--stone);
+}
+
+.liturgy-block[data-role="people"] {
+    border-left-color: var(--crimson);
+}
+
+/* Liturgy text spans */
+.lt-en {
+    display: block;
+    font-family: var(--font-body);
+}
+
+.lt-ro {
+    display: block;
+    font-family: var(--font-ro);
+    margin-top: 4px;
+}
+
+/* Language visibility */
+.lang-en .lt-ro { display: none; }
+.lang-ro .lt-en { display: none; }
+.lang-both .lt-en,
+.lang-both .lt-ro { display: block; }
+
+/* Editable state */
+.liturgy-block[contenteditable="true"] {
+    outline: 2px dashed var(--crimson);
+    outline-offset: 2px;
+    background: rgba(139, 26, 26, 0.05);
+}
+
+/* ---- Divider ---- */
+.liturgy-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0 8px;
+    margin-top: 8px;
+}
+
+.liturgy-divider::before,
+.liturgy-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.divider-label {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.divider-ornament {
+    color: var(--gold);
+    font-size: 0.8rem;
+}
+
+/* ---- Notes Panel ---- */
+.inotes {
+    margin-top: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.inotes-toggle {
+    width: 100%;
+    background: var(--bg);
+    border: none;
+    padding: 8px 12px;
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: left;
+    letter-spacing: 0.3px;
+    min-height: 36px;
+}
+
+.inotes-toggle:hover {
+    background: rgba(184, 137, 10, 0.1);
+}
+
+.inotes-body {
+    display: none;
+    padding: 8px 12px;
+    background: var(--bg-card);
+}
+
+.inotes-body.open {
+    display: block;
+}
+
+.note-item {
+    margin-bottom: 8px;
+}
+
+.note-badge {
+    font-family: var(--font-label);
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.note-badge.score {
+    background: var(--purple);
+    color: var(--white);
+}
+
+.note-badge.audio {
+    background: var(--ocean);
+    color: var(--white);
+}
+
+.note-badge.text {
+    background: var(--stone);
+    color: var(--white);
+}
+
+.note-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.note-link {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    color: var(--ocean);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--ocean);
+    border-radius: var(--radius);
+    margin-top: 4px;
+    min-height: 32px;
+    line-height: 24px;
+}
+
+body.dark .note-link {
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+.note-link:hover {
+    background: var(--ocean);
+    color: var(--white);
+}
+
+/* ---- Books List ---- */
+.books-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.book-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+}
+
+.book-item:hover {
+    box-shadow: var(--shadow);
+}
+
+.book-icon {
+    font-size: 1.5rem;
+}
+
+.book-info h3 {
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    color: var(--ocean);
+}
+
+body.dark .book-info h3 {
+    color: var(--gold);
+}
+
+.book-info p {
+    font-family: var(--font-ro);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ---- Preferences ---- */
+.prefs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pref-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+}
+
+.pref-item label {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+}
+
+.pref-item select {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.pref-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.pref-btn {
+    width: 100%;
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    padding: 10px 16px;
+    border: 1px solid var(--ocean);
+    background: var(--bg-card);
+    color: var(--ocean);
+    border-radius: var(--radius);
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    min-height: 44px;
+}
+
+body.dark .pref-btn {
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+.pref-btn:hover {
+    background: var(--ocean);
+    color: var(--white);
+}
+
+/* ---- Loading / Empty States ---- */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+/* ---- Print ---- */
+@media print {
+    #app-header,
+    .bottom-nav,
+    .liturgy-toolbar,
+    .bookmark-chips,
+    .edit-bar,
+    .inotes {
+        display: none !important;
+    }
+
+    body {
+        padding: 0;
+        background: white;
+        color: black;
+    }
+
+    .tab-content {
+        display: block !important;
+        max-width: none;
+    }
+
+    .liturgy-block {
+        page-break-inside: avoid;
+    }
+
+    .liturgy-divider {
+        page-break-before: auto;
+    }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 400px) {
+    .header-title {
+        font-size: 0.95rem;
+    }
+
+    .lang-btn {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+    }
+
+    .saints-row {
+        gap: 12px;
+    }
+}
+
+/* ---- Find & Replace Panel ---- */
+.fr-panel {
+    position: fixed;
+    bottom: var(--nav-height);
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--bg-card);
+    border-top: 3px solid var(--crimson);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+}
+
+.fr-panel.hidden {
+    display: none;
+}
+
+.fr-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.fr-header h3 {
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    color: var(--crimson);
+    letter-spacing: 0.5px;
+}
+
+.fr-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px 8px;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fr-inputs {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fr-inputs input[type="text"] {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 44px;
+}
+
+.fr-inputs input[type="text"]:focus {
+    outline: 2px solid var(--ocean);
+    border-color: var(--ocean);
+}
+
+.fr-options {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.fr-options label {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.fr-options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.fr-action-btn {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    padding: 10px 20px;
+    background: var(--ocean);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    min-height: 44px;
+}
+
+.fr-action-btn:hover {
+    opacity: 0.9;
+}
+
+.fr-apply-btn {
+    background: var(--crimson);
+    width: 100%;
+}
+
+.fr-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 16px;
+    max-height: 30vh;
+}
+
+.fr-match {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.fr-match:hover {
+    background: rgba(184, 137, 10, 0.05);
+}
+
+.fr-match.selected {
+    border-color: var(--crimson);
+    background: rgba(139, 26, 26, 0.05);
+}
+
+.fr-match-check {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.fr-match-text {
+    flex: 1;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.fr-match-text mark {
+    background: rgba(184, 137, 10, 0.3);
+    color: inherit;
+    padding: 1px 2px;
+    border-radius: 2px;
+}
+
+.fr-match-section {
+    font-family: var(--font-label);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+}
+
+.fr-match-role {
+    font-family: var(--font-label);
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.fr-match-role.priest { background: var(--ocean); color: var(--white); }
+.fr-match-role.deacon { background: var(--gold); color: var(--white); }
+.fr-match-role.choir { background: var(--purple); color: var(--white); }
+.fr-match-role.rubric { background: var(--stone); color: var(--white); }
+.fr-match-role.people { background: var(--crimson); color: var(--white); }
+
+.fr-summary {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+}
+
+.fr-summary.hidden {
+    display: none;
+}
+
+.fr-count {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-align: center;
+}

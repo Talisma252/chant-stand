@@ -1,0 +1,15 @@
+{
+  "name": "chant-stand",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Digital Chant Stand (Strană Digitală) — liturgical tool for Romanian Orthodox parish",
+  "scripts": {
+    "dev": "wrangler pages dev public --d1=DB=chant_stand_db",
+    "deploy": "wrangler pages deploy public",
+    "migrate": "wrangler d1 execute chant_stand_db --file=migrations/0001_initial.sql",
+    "migrate:local": "wrangler d1 execute chant_stand_db --local --file=migrations/0001_initial.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

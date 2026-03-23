@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1A3550">
+    <meta name="description" content="Digital Chant Stand — Strană Digitală — Ss. Brendan &amp; Joseph of Partos Romanian Orthodox Parish, Dublin">
+    <title>Digital Chant Stand — Strană Digitală</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <!-- Header -->
+    <header id="app-header">
+        <div class="header-stripe"></div>
+        <div class="header-content">
+            <h1 class="header-title">☩ Strană Digitală</h1>
+            <div class="header-controls">
+                <button id="btn-edit" class="header-btn" title="Edit Mode">✏️</button>
+            </div>
+        </div>
+        <!-- Edit bar (hidden by default) -->
+        <div id="edit-bar" class="edit-bar hidden">
+            <span>Choir Lead Editing</span>
+            <div>
+                <button id="btn-find-replace" class="edit-btn">Find & Replace</button>
+                <button id="btn-save-edit" class="edit-btn">Save</button>
+                <button id="btn-exit-edit" class="edit-btn edit-btn-cancel">Exit</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main id="app-main">
+        <!-- Calendar Tab -->
+        <section id="tab-calendar" class="tab-content active">
+            <div class="saints-card">
+                <div class="saints-card-inner">
+                    <h3>Ss. Brendan & Joseph of Partos Parish</h3>
+                    <p class="saints-subtitle">Parohia Sf. Brendan și Sf. Iosif de la Partoș</p>
+                    <div class="saints-row">
+                        <div class="saint">
+                            <span class="saint-icon">☘</span>
+                            <span class="saint-name">St Brendan the Navigator</span>
+                            <span class="saint-date">16 May</span>
+                        </div>
+                        <div class="saint">
+                            <span class="saint-icon">☩</span>
+                            <span class="saint-name">St Joseph of Partos</span>
+                            <span class="saint-date">15 September</span>
+                        </div>
+                    </div>
+                    <p class="saints-location">The Pepper Canister, Mount Street Crescent, Dublin 2</p>
+                    <p class="saints-diocese">Diocese of Ireland & Iceland</p>
+                </div>
+            </div>
+
+            <!-- Today strip -->
+            <div id="today-strip" class="today-strip"></div>
+
+            <!-- Calendar grid -->
+            <div class="calendar-nav">
+                <button id="cal-prev" class="cal-nav-btn">◀</button>
+                <h2 id="cal-month-label" class="cal-month-label"></h2>
+                <button id="cal-next" class="cal-nav-btn">▶</button>
+            </div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+            <div id="cal-feast-detail" class="cal-feast-detail hidden"></div>
+        </section>
+
+        <!-- Services Tab -->
+        <section id="tab-services" class="tab-content">
+            <h2 id="services-date-label" class="section-title"></h2>
+            <div id="services-feast" class="services-feast hidden"></div>
+            <div id="services-list" class="services-list"></div>
+        </section>
+
+        <!-- Liturgy Tab -->
+        <section id="tab-liturgy" class="tab-content">
+            <div class="liturgy-toolbar">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">English</button>
+                    <button class="lang-btn" data-lang="ro">Română</button>
+                    <button class="lang-btn" data-lang="both">Bilingv</button>
+                </div>
+                <div class="font-controls">
+                    <button id="btn-font-down" class="font-btn">A−</button>
+                    <button id="btn-font-up" class="font-btn">A+</button>
+                </div>
+            </div>
+            <div id="bookmark-chips" class="bookmark-chips"></div>
+            <div id="liturgy-content" class="liturgy-content"></div>
+        </section>
+
+        <!-- Books Tab -->
+        <section id="tab-books" class="tab-content">
+            <h2 class="section-title">Service Books</h2>
+            <div class="books-list">
+                <div class="book-item" data-service="lit">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Divine Liturgy of St John Chrysostom</h3>
+                        <p>Sfânta Liturghie a Sf. Ioan Gură de Aur</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="mat">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Matins (Orthros)</h3>
+                        <p>Utrenia</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="ves">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Great Vespers</h3>
+                        <p>Vecernia Mare</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="h1">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>First Hour</h3>
+                        <p>Ceasul I</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="h3">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Third Hour</h3>
+                        <p>Ceasul al III-lea</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="h6">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Sixth Hour</h3>
+                        <p>Ceasul al VI-lea</p>
+                    </div>
+                </div>
+                <div class="book-item" data-service="h9">
+                    <span class="book-icon">📖</span>
+                    <div class="book-info">
+                        <h3>Ninth Hour</h3>
+                        <p>Ceasul al IX-lea</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preferences Tab -->
+        <section id="tab-prefs" class="tab-content">
+            <h2 class="section-title">Preferences</h2>
+            <div class="prefs-list">
+                <div class="pref-item">
+                    <label for="pref-lang">Default Language</label>
+                    <select id="pref-lang">
+                        <option value="en">English</option>
+                        <option value="ro">Română</option>
+                        <option value="both">Bilingual</option>
+                    </select>
+                </div>
+                <div class="pref-item">
+                    <label for="pref-notes">Music Notes Inline</label>
+                    <input type="checkbox" id="pref-notes" checked>
+                </div>
+                <div class="pref-item">
+                    <label for="pref-choir">Choir Mode (24px)</label>
+                    <input type="checkbox" id="pref-choir">
+                </div>
+                <div class="pref-item">
+                    <label for="pref-dark">Evening Theme</label>
+                    <input type="checkbox" id="pref-dark">
+                </div>
+                <div class="pref-item">
+                    <label for="pref-wakelock">Keep Screen On</label>
+                    <input type="checkbox" id="pref-wakelock">
+                </div>
+                <div class="pref-item">
+                    <button id="btn-change-password" class="pref-btn">Change Editor Password</button>
+                </div>
+                <div class="pref-item">
+                    <button id="btn-export" class="pref-btn">Export Service</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom navigation -->
+    <nav id="bottom-nav" class="bottom-nav">
+        <button class="nav-btn active" data-tab="calendar">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Calendar</span>
+        </button>
+        <button class="nav-btn" data-tab="services">
+            <span class="nav-icon">⛪</span>
+            <span class="nav-label">Services</span>
+        </button>
+        <button class="nav-btn" data-tab="liturgy">
+            <span class="nav-icon">📖</span>
+            <span class="nav-label">Liturgy</span>
+        </button>
+        <button class="nav-btn" data-tab="books">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Books</span>
+        </button>
+        <button class="nav-btn" data-tab="prefs">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Prefs</span>
+        </button>
+    </nav>
+
+    <!-- Find & Replace Panel -->
+    <div id="fr-panel" class="fr-panel hidden">
+        <div class="fr-header">
+            <h3>Find & Replace</h3>
+            <button id="fr-close" class="fr-close">&times;</button>
+        </div>
+        <div class="fr-inputs">
+            <input type="text" id="fr-find" placeholder="Find..." autocomplete="off">
+            <input type="text" id="fr-replace" placeholder="Replace with..." autocomplete="off">
+            <div class="fr-options">
+                <label><input type="checkbox" id="fr-case"> Case sensitive</label>
+                <label><input type="checkbox" id="fr-lang-en" checked> English</label>
+                <label><input type="checkbox" id="fr-lang-ro"> Romanian</label>
+            </div>
+            <button id="fr-search" class="fr-action-btn">Find All</button>
+        </div>
+        <div id="fr-results" class="fr-results"></div>
+        <div id="fr-summary" class="fr-summary hidden">
+            <button id="fr-apply" class="fr-action-btn fr-apply-btn">Apply Selected Replacements</button>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
