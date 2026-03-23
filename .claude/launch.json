@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chant-stand-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "pages", "dev", "public", "--d1=DB=chant_stand_db", "--port", "8788"],
+      "port": 8788
+    }
+  ]
+}
