@@ -38,7 +38,7 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
     ('lit', 130, 'choir', 'Lord, have mercy.', 'Doamne, miluiește.', NULL, 0, NULL),
     ('lit', 140, 'deacon', 'For pious and Orthodox Christians, let us pray to the Lord.', 'Pentru binecredincioșii și dreptmăritorii creștini, Domnului să ne rugăm.', NULL, 0, NULL),
     ('lit', 150, 'choir', 'Lord, have mercy.', 'Doamne, miluiește.', NULL, 0, NULL),
-    ('lit', 160, 'deacon', 'For (episcopal rank) (name), for the honorable presbytery, for the diaconate in Christ, and for all the clergy and the people, let us pray to the Lord.', 'Pentru (rangul episcopal) (numele), pentru cinstita preoțime, cea întru Hristos diaconie și tot clerul și poporul, Domnului să ne rugăm.', NULL, 0, NULL),
+    ('lit', 160, 'deacon', 'For our Metropolitan Iosif, for our Bishop Nectarie, for the honourable presbytery, the diaconate in Christ, and for all the clergy and the people, let us pray to the Lord.', 'Pentru Înalt Prea Sfințitul Mitropolitul nostru Iosif, pentru Prea Sfințitul Episcopul nostru Nectarie, pentru cinstita preoțime, cea întru Hristos diaconie și tot clerul și poporul, Domnului să ne rugăm.', NULL, 0, NULL),
     ('lit', 170, 'choir', 'Lord, have mercy.', 'Doamne, miluiește.', NULL, 0, NULL),
     ('lit', 180, 'deacon', 'For our country, for the president, and for all in public service, let us pray to the Lord.', 'Pentru țara aceasta, pentru Președinte și pentru toată conducerea ei, Domnului să ne rugăm.', NULL, 0, NULL),
     ('lit', 190, 'choir', 'Lord, have mercy.', 'Doamne, miluiește.', NULL, 0, NULL),
@@ -243,7 +243,7 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
     ('lit', 1330, 'choir', 'Lord, have mercy.', 'Doamne, miluiește.', NULL, 0, NULL),
     ('lit', 1340, 'deacon', 'Have mercy on us, O God, according to Thy great mercy, we pray Thee, hear us and have mercy.', 'Miluiește-ne pe noi, Dumnezeule, după mare mila Ta, rugămu-ne Ție, auzi-ne și ne miluiește.', NULL, 0, NULL),
     ('lit', 1350, 'choir', 'Lord, have mercy. Lord, have mercy. Lord, have mercy.', 'Doamne, miluiește. Doamne, miluiește. Doamne, miluiește.', NULL, 0, NULL),
-    ('lit', 1360, 'deacon', 'Again we pray for (episcopal rank) (name).', NULL, NULL, 0, NULL),
+    ('lit', 1360, 'deacon', 'Again we pray for our Metropolitan Iosif and our Bishop Nectarie.', 'Încă ne rugăm pentru Înalt Prea Sfințitul Mitropolitul nostru Iosif și Prea Sfințitul Episcopul nostru Nectarie.', NULL, 0, NULL),
     ('lit', 1370, 'choir', 'Lord, have mercy. Lord, have mercy. Lord, have mercy.', 'Doamne, miluiește. Doamne, miluiește. Doamne, miluiește.', NULL, 0, NULL),
     ('lit', 1380, 'deacon', 'Again we pray for our brethren: the priests, the hieromonks, the hierodeacons, the monastics, and all our brotherhood in Christ.', NULL, NULL, 0, NULL),
     ('lit', 1390, 'choir', 'Lord, have mercy. Lord, have mercy. Lord, have mercy.', 'Doamne, miluiește. Doamne, miluiește. Doamne, miluiește.', NULL, 0, NULL),
@@ -476,7 +476,7 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
 INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, anchor, is_divider, div_label) VALUES
     ('lit', 2750, 'priest', 'For Saint John the prophet, forerunner, and Baptist; for the holy, glorious, and most praiseworthy apostles; for Saint.....whose memory we celebrate; and for all Thy saints, through whose supplications, visit us, O God. And remember all who have fallen asleep in the hope of the resurrection to life eternal. Here the Priest commemorates by name those departed whom he wishes. Grant them rest, O our God, where the light of Thy countenance keeps watch. Again we beseech Thee, Lord, remember all Orthodox bishops who rightly teach the word of Thy truth, the presbyterate, the diaconate in Christ, and every priestly and monastic order. Again we offer Thee this spiritual worship for the whole world, for the holy, catholic, and apostolic Church,', NULL, NULL, 0, NULL),
     ('lit', 2760, 'priest', 'and for those living pure and reverent lives. For civil authorities and our armed forces, grant that they may govern in peace, Lord, so that in their tranquility we, too, may live calm and serene lives, in all piety and virtue.', NULL, NULL, 0, NULL),
-    ('lit', 2770, 'priest', 'Among the first remember, Lord, (episcopal rank) (name). Grant him to Thy holy churches in peace, safety, honor, and health, unto length of days, rightly teaching the word of Thy truth.', NULL, NULL, 0, NULL),
+    ('lit', 2770, 'priest', 'Among the first remember, Lord, our Metropolitan Iosif and our Bishop Nectarie. Grant them to Thy holy churches in peace, safety, honour, and health, unto length of days, rightly teaching the word of Thy truth.', NULL, NULL, 0, NULL),
     ('lit', 2780, 'priest', 'And remember those whom each one of us has in mind, and all the people.', NULL, NULL, 0, NULL),
     ('lit', 2790, 'choir', 'And all the people.', 'Și pe toți și pe toate.', NULL, 0, NULL),
     ('lit', 2800, 'priest', 'Remember, Lord, this city in which we live, and every city and land, and the faithful who live in them. Remember, Lord, those who travel by land, sea, and air; the sick; the suffering; the captives; and their salvation. Remember those who bear fruit and do good works in Thy holy churches and those who are mindful of the poor, and upon us all send forth Thy mercies.', NULL, NULL, 0, NULL),
@@ -624,7 +624,7 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
 -- Many Years (Polychronion)
 INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, anchor, is_divider, div_label) VALUES
     ('lit', 3600, 'rubric', NULL, NULL, 'polychronion', 1, 'Polychronion'),
-    ('lit', 3610, 'choir', 'To our great lord and father, (episcopal rank) (name), to our father (name of parish priest), to the founders and benefactors of this holy church, and to all Orthodox Christians: grant, O Lord, many years!', 'Pe Înalt Prea Sfințitul (rangul) (numele), pe părintele nostru (numele preotului paroh), pe ctitorii și binefăcătorii sfântului locașului acestuia și pe toți dreptmăritorii creștini, Doamne, îi păzește întru mulți ani!', NULL, 0, NULL),
+    ('lit', 3610, 'choir', 'To our great lord and father, Metropolitan Iosif, to our Bishop Nectarie, to the founders and benefactors of this holy church, and to all Orthodox Christians: grant, O Lord, many years!', 'Pe Înalt Prea Sfințitul Mitropolitul nostru Iosif, pe Prea Sfințitul Episcopul nostru Nectarie, pe ctitorii și binefăcătorii sfântului locașului acestuia și pe toți dreptmăritorii creștini, Doamne, îi păzește întru mulți ani!', NULL, 0, NULL),
     ('lit', 3620, 'choir', 'Many years! Many years! Many years!', 'Mulți ani! Mulți ani! Mulți ani!', NULL, 0, NULL);
 
 -- ============================================================
