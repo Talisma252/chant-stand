@@ -632,43 +632,32 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
 -- NOTES: Score references
 -- ============================================================
 
--- Insert notes for blocks that reference musical scores
--- Alleluia ×3 After Apostle (handwritten score)
+-- Second Antiphon — Only-begotten Son (antiphon2.pdf)
 INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Handwritten score — Alleluia (×3) after the Apostle reading', NULL, NULL, 1
-    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'alleluia-apostle' LIMIT 1;
+    SELECT id, 'score', 'Second Antiphon — Only-begotten Son', '/scores/antiphon2.pdf', 'Score', 1
+    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'antiphon-2' LIMIT 1;
 
--- Cherubic Hymn (handwritten score)
+-- Little Entrance hymn (entrance-hymn.pdf)
 INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Handwritten score — Cherubic Hymn (We who mystically represent the Cherubim)', NULL, NULL, 1
+    SELECT id, 'score', 'Entrance Hymn — Come, let us worship', '/scores/entrance-hymn.pdf', 'Score', 1
+    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'little-entrance' LIMIT 1;
+
+-- General Entrance hymn (entrance-hymn-general.pdf)
+INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
+    SELECT id, 'score', 'Entrance Hymn — General', '/scores/entrance-hymn-general.pdf', 'Score', 2
+    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'little-entrance' LIMIT 1;
+
+-- Cherubic Hymn (cherubic-hymn.pdf)
+INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
+    SELECT id, 'score', 'Cherubic Hymn — We who mystically represent the Cherubim', '/scores/cherubic-hymn.pdf', 'Score', 1
     FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'cherubic-hymn' LIMIT 1;
 
--- Anaphora — hymn to the Theotokos (typeset score available)
+-- Hymn to the Theotokos — Axion Estin (theotokos-hymn.pdf)
 INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Typeset score available — It is truly right to bless Thee, O Theotokos (Axion Estin)', NULL, NULL, 1
+    SELECT id, 'score', 'It is truly right to bless Thee, O Theotokos (Axion Estin)', '/scores/theotokos-hymn.pdf', 'Score', 1
     FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'axion' LIMIT 1;
 
--- One is Holy (handwritten score)
+-- Communion Hymn (communion-hymn.pdf)
 INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Handwritten score — One is Holy, One is Lord, Jesus Christ', NULL, NULL, 1
-    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'holy-things' LIMIT 1;
-
--- Receive the Body of Christ (handwritten score)
-INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Handwritten score — Receive the Body of Christ, taste the Fountain of Immortality', NULL, NULL, 1
+    SELECT id, 'score', 'Communion Hymn — Praise the Lord from the heavens', '/scores/communion-hymn.pdf', 'Score', 1
     FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'communion-hymn' LIMIT 1;
-
--- Let our mouths be filled (handwritten score)
-INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Handwritten score — Let our mouths be filled with Thy praise, O Lord', NULL, NULL, 1
-    FROM liturgy_blocks WHERE service_type = 'lit' AND sort_order = 3360 LIMIT 1;
-
--- We have seen the true light (typeset score available)
-INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Typeset score available — We have seen the true light', NULL, NULL, 1
-    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'true-light' LIMIT 1;
-
--- Praised be the name of the Lord (typeset score available)
-INSERT INTO notes (block_id, note_type, note_text, link_url, link_label, sort_order)
-    SELECT id, 'score', 'Typeset score available — Praised be the name of the Lord', NULL, NULL, 1
-    FROM liturgy_blocks WHERE service_type = 'lit' AND anchor = 'praised-be' LIMIT 1;
