@@ -3,7 +3,7 @@
 -- Complete Divine Liturgy of St John Chrysostom
 -- Source of truth: Parish printed booklet (28 pages)
 -- Archaic English (Thee/Thy/Thine) for divine pronouns
--- Applied via d1 execute: 2026-03-29
+-- Applied via d1 execute: 2026-03-30
 -- ============================================================
 
 -- Clear existing liturgy blocks and their notes
