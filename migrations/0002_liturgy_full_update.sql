@@ -606,7 +606,7 @@ INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, an
 -- Psalm 33 (selected verses)
 INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, anchor, is_divider, div_label) VALUES
     ('lit', 3500, 'rubric', NULL, NULL, 'psalm-33', 1, 'Psalm 33'),
-    ('lit', 3510, 'reader', 'I will bless the Lord at all times; His praise shall continually be in my mouth. My soul makes its boast in the Lord; let the humble hear and be glad. O magnify the Lord with me, and let us exalt His name together.', 'Binecuvânta-voi pe Domnul în toată vremea, pururea lauda Lui în gura mea. În Domnul se va lăuda sufletul meu; să audă cei blânzi și să se veselească. Slăviți pe Domnul împreună cu mine și să înălțăm numele Lui împreună.', NULL, 0, NULL);
+    ('lit', 3510, 'choir', 'I will bless the Lord at all times; His praise shall continually be in my mouth. My soul makes its boast in the Lord; let the humble hear and be glad. O magnify the Lord with me, and let us exalt His name together.', 'Binecuvânta-voi pe Domnul în toată vremea, pururea lauda Lui în gura mea. În Domnul se va lăuda sufletul meu; să audă cei blânzi și să se veselească. Slăviți pe Domnul împreună cu mine și să înălțăm numele Lui împreună.', NULL, 0, NULL);
 
 -- Final Blessing
 INSERT INTO liturgy_blocks (service_type, sort_order, role, text_en, text_ro, anchor, is_divider, div_label) VALUES
